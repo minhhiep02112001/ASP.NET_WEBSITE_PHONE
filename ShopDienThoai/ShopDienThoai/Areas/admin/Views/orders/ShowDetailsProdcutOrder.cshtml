@@ -24,7 +24,7 @@
             <td>
                 @foreach (var i in listProduct)
                 {
-                    if (item.id == i.id)
+                    if (item.product_id == i.id)
                     {
                         @i.color
                     }
@@ -34,7 +34,7 @@
             <td>
                 @foreach (var i in listProduct)
                 {
-                    if (item.id == i.id)
+                    if (item.product_id == i.id)
                     {
                         @i.memory
                     }
@@ -46,7 +46,7 @@
 
 
             <td>
-                @Html.DisplayFor(modelItem => item.total)
+                @String.Format("{0:0,0}", item.total)<sup>vnđ</sup>
             </td>
 
 

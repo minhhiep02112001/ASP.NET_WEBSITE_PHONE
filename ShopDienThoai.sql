@@ -138,7 +138,7 @@ create table order_details
 	price float NOT NULL,
 	qty int NOT NULL,
 	total float not null default 0,
-	is_remove bit default 0
+	is_remove bit default 0 -- trường check giá trị thay đổi
 )
 
 create table contact
@@ -150,10 +150,30 @@ create table contact
 	content nvarchar(255),
 	create_at datetime  DEFAULT GETDATE() , 
 )
-insert into users(name , email , passwords , is_active , is_remove) values ('admin','admin@gmail.com' , 'e10adc3949ba59abbe56e057f20f883e',1,0) --- pass 123456
---- tính sản phẩm bán chạy
 
+---chèn 1 tài khoản quản trị
+insert into users(name , email , passwords , is_active , is_remove) values ('admin','admin@gmail.com' , 'e10adc3949ba59abbe56e057f20f883e',1,0) --- pass 123456
+
+
+--- tính sản phẩm bán chạy
 select top(8) * from product where product.id in (select top(8) product_id  from order_details group by product_id , qty order by SUM(qty) desc)
 
 
-select * from category
+/* cập nhật số lượng khi giao hàng*/
+/*	khi người quản trị thanh đổi order_Status_id của bảng orders thành [ giao hàng (1)| thành công (2)] 
+	thì order_details update is_remove = true (nghĩa là sản phẩm đã trừ số lượng mua) qua trigger bên dưới
+*/
+	go
+	Create TRIGGER updateQuantityOrderSucess ON  order_details AFTER UPDATE AS 
+	BEGIN
+		DECLARE @is_check bit;
+		DECLARE @qty int;
+		DECLARE @product_id bigint;
+		select @is_check = deleted.is_remove , @product_id = order_details.product_id , @qty = order_details.qty from order_details join deleted on order_details.id = deleted.id;
+		IF @is_check != 1
+		BEGIN
+			UPDATE product SET quantity = quantity - @qty where product.id = @product_id;
+		END
+	END
+	GO
+

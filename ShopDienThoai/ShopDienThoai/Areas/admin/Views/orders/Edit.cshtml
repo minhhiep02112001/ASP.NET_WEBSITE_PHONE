@@ -56,13 +56,16 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Tổng :</th>
-                                                    <td>@Model.total</td>
+                                                    <td> @String.Format("{0:0,0}", Model.total)<sup>vnđ</sup></td>
                                                 </tr>
                                                 <tr>
                                                     <th>Trạng Thái:</th>
                                                     <td>
                                                         <select class="form-control" name="status">
-                                                            <option value="0" @(Model.order_Status_id == 0 ? "selected" : "")>Đặt Hàng</option>
+                                                            @if (Model.order_Status_id == 0)
+                                                            {
+                                                                <option value="0" selected>Đặt Hàng</option>
+                                                            }
                                                             <option value="1" @(Model.order_Status_id == 1 ? "selected" : "")>Giao Hàng</option>
                                                             <option value="2" @(Model.order_Status_id == 2 ? "selected" : "")>Thành Công</option>
                                                             <option value="3" @(Model.order_Status_id == 3 ? "selected" : "")>Hủy</option>
@@ -77,7 +80,11 @@
                                         </table>
                                     }
 
-                                </div>
+
+                                <p>
+                                    @ViewBag.Status
+                                </p>
+                              </div>
                             </div>
                         </div>
 

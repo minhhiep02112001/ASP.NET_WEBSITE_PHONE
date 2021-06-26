@@ -153,8 +153,11 @@ namespace ShopDienThoai.Controllers
                 order_detail.order_id = order_add.id;
                 order_detail.price = item.price;
                 order_detail.qty = item.quatity;
+                order_detail.name = item.ten_sp;
+                
                 order_detail.product_id = item.product_id;
                 order_detail.total = item.total;
+                order_detail.is_remove = false;
                 db.order_details.Add(order_detail);
                 db.SaveChanges();
             }

@@ -14,7 +14,7 @@
                     {
                         <div class="col-md-12 d-flex ftco-animate fadeInUp ftco-animated">
                             <div class="blog-entry align-self-stretch d-md-flex">
-                                <a href="blog-single.html" class="block-20" style="background-image: url('@item.images');">
+                                <a href="@Url.RouteUrl("ChiTietTinTuc",new { slug = item.slug })" class="block-20" style="background-image: url('@item.images');">
                                 </a>
                                 <div class="text d-block pl-md-4">
                                     @*<div class="meta mb-3">

@@ -4,7 +4,7 @@
     ViewBag.Title = "ChiTietTinTuc";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var listComments = (ShopDienThoai.EntityFramework.comment)ViewBag.Comments;
+    var listComments = (List<ShopDienThoai.EntityFramework.comment>)ViewBag.Comments;
 }
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
@@ -16,19 +16,22 @@
                 <div class="pt-5 mt-5">
                     <h3 class="mb-5"> Comments</h3>
                     <ul class="comment-list">
-                        @foreach (var c in listComments)
+                        @if (listComments.Count > 0)
                         {
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="~/Public/frontend/images/person_1.jpg" />
-                                </div>
-                                <div class="comment-body">
-                                    <h3>@c.name</h3>
-                                    <div class="meta">@c.created_at</div>
-                                    <p> @c.meta_title</p>
-                                    
-                                </div>
-                            </li>
+                            foreach (var c in listComments)
+                            {
+                                <li class="comment">
+                                    <div class="vcard bio">
+                                        <img src="~/Public/frontend/images/person_1.jpg" />
+                                    </div>
+                                    <div class="comment-body">
+                                        <h3>@c.name</h3>
+                                        <div class="meta">@c.created_at</div>
+                                        <p> @c.meta_title</p>
+
+                                    </div>
+                                </li>
+                            }
                         }
 
 
