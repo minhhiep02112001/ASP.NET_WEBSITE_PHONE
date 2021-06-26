@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ShopDienThoai.EntityFramework.contact>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="right_col" role="main">
+    <div class="">
+
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Thông tin liên hệ<small>(contact)</small></h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box table-responsive">
+
+                                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>TT</th>
+                                                <th style="max-with:200px">Tên</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Nội Dung</th>
+                                              
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr id="row_@item.id">
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.id)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.name)
+                                                    </td>
+
+                                                    <td>
+                                                        @item.phone
+                                                    </td>
+
+                                                    <td>
+                                                        @item.email
+                                                    </td>
+
+                                                    
+
+                                                    <td>
+                                                        @item.content
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

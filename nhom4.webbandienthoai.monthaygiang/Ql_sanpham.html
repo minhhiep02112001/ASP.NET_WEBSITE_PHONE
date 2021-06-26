@@ -1,0 +1,547 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>Imic-Management</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="./assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="./assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="./assets/global/plugins/select2/select2.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME STYLES -->
+
+    <link href="./assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css">
+    <link href="./assets/global/css/plugins-md.css" rel="stylesheet" type="text/css">
+    <link href="./assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
+    <link href="./assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color">
+    <link href="./assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
+    <link href="./css/ajaxloader.css" rel="stylesheet" />
+    <link href="./css/jquery-ui.css" rel="stylesheet" />
+    <link href="./css/for-admin.css" rel="stylesheet" />
+
+
+
+
+
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-menu-fixed" class to set the mega menu fixed  -->
+<!-- DOC: Apply "page-header-top-fixed" class to set the top menu fixed  -->
+<body class="page-md">
+    <div id="loading" style="display:none">
+        <img src="./assets/admin/pages/img/loader2.gif" />
+
+    </div>
+    <!-- BEGIN HEADER -->
+    <div class="page-header">
+        <div class="page-header-top">
+            <div class="container">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="index.html"></a>
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler"></a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        <!-- BEGIN NOTIFICATION DROPDOWN -->
+                        <!-- END NOTIFICATION DROPDOWN -->
+
+                        <li class="droddown dropdown-separator">
+                            <span class="separator"></span>
+                        </li>
+
+                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                        <li class="dropdown dropdown-user dropdown-dark">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img alt="" class="img-circle" src="../../assets/admin/layout3/img/avatar9.jpg">
+                                <span class="username username-hide-mobile">Mr User</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a>
+                                        <i class="icon-user"></i> Thông tin cá nhân
+                                    </a>
+                                </li>
+
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a asp-action="ChangePassword" asp-controller="Account">
+                                        <i class="icon-lock"></i> Đổi mật khẩu
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-action="Logout" asp-controller="Account">
+                                        <i class="icon-key"></i> Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END USER LOGIN DROPDOWN -->
+                    </ul>
+                </div>
+                <!-- END TOP NAVIGATION MENU -->
+            </div>
+        </div>
+        <div class="page-header-menu">
+            <div class="container">
+
+                <div class="hor-menu ">
+
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a>   <i class="icon-home"></i><span>IMIC</span> </a>
+                        </li>
+
+                        <li class="menu-dropdown mega-menu-dropdown ">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
+                                QL.Chung <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu" style="min-width: 250px">
+                                <li>
+                                    <div class="mega-menu-content">
+                                        <div class="row">
+
+                                            <div class="col-md-12">
+                                                <ul class="mega-menu-submenu">
+
+                                                    <li>
+                                                        <a href="/noi-dung-trang" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Nội dung trang
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/hinh-anh" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Video, hình ảnh
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/thong-tin" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Thông tin
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/mang-xa-hoi" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Mạng xã hội
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-dropdown mega-menu-dropdown ">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
+                                QL.Khóa học <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu" style="min-width: 250px">
+                                <li>
+                                    <div class="mega-menu-content">
+                                        <div class="row">
+                                            <!--one menu-->
+
+                                            <div class="col-md-12">
+                                                <ul class="mega-menu-submenu">
+
+                                                    <li>
+                                                        <a href="/danh-muc-khoa-hoc" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Danh mục khóa học
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/do-hoa-lap-trinh" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Khóa học
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/lich-khai-giang" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Lịch khai giảng
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--Quan ly bai viet-->
+                        <li class="menu-dropdown mega-menu-dropdown ">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
+                                QL.Bài viết <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu" style="min-width: 250px">
+                                <li>
+                                    <div class="mega-menu-content">
+                                        <div class="row">
+                                            <!--one menu-->
+                                            <div class="col-md-12">
+                                                <ul class="mega-menu-submenu">
+                                                    <li>
+                                                        <a href="/danh-muc-bai-viet" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Thể loại bài viết
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/tin-tuc-su-kien" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Bài viết
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/Blog/WriteBlog" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Viết bài
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/binh-luan-bai-viet" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Bình luận bài viết
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                        <li class="menu-dropdown mega-menu-dropdown ">
+                            <a data-hover="megamenu-dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
+                                QL.Tuyển dụng <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu" style="min-width: 250px">
+                                <li>
+                                    <div class="mega-menu-content">
+                                        <div class="row">
+                                            <!--one menu-->
+                                            <div class="col-md-12">
+                                                <ul class="mega-menu-submenu">
+                                                    <li>
+                                                        <a href="/doi-tac-tuyen-dung" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Đối tác của Imic
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/them-doi-tac" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Thêm đối tác
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/danh-sach-ung-tuyen" class="iconify">
+                                                            <i class="icon-pin"></i>
+                                                            Danh sách ứng tuyển
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+                <!-- END MEGA MENU -->
+            </div>
+        </div>
+        <!-- END HEADER MENU -->
+    </div>
+    <div class="page-container">
+
+        <div class="page-content">
+
+            <!--RenderBody()-->
+
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                        <div class="portlet light" style="height:2000px">
+                            <div class="portlet-title">
+
+                                <div class="caption col-md-12">
+                                    <span class="caption-subject font-green-sharp bold uppercase">
+                                        Quản lý khóa học
+                                    </span>
+                                </div>
+
+                                <div class="portlet-body">
+
+                                    <div class="table-toolbar">
+
+                                        <div class="col-md-2 col-sm-12 col-xs-12 pull-left">
+                                            <a class="btn btn-success" href="#modal-add" data-toggle="modal" id="btn-add">Tạo mới</a>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive col-md-12">
+                                <table class="table table-bordered table-hover table-striped table-responsive">
+                                    <thead>
+                                        <tr class="text-center">
+
+                                            <td>Ngày tạo</td>
+                                            <td>Tên khóa học</td>
+                                            <td>Danh mục</td>
+
+                                            <td>Tên rút gọn </td>
+
+                                            <td>Loại</td>
+                                            <td>Gradient nền</td>
+                                            <td width="8%">Tác vụ</td>
+                                            <td width="8%">Thêm</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-content">
+
+                                        <tr id="tr-item.CourseCateId" class="text-center">
+
+                                            <td>
+                                                
+                                                output
+                                            </td>
+                                            <td> item.CourseName</td>
+                                            <td> item.CourseCateName</td>
+
+                                            <td> item.ShortName</td>
+
+                                            <td>
+                                                
+                                                display
+
+                                            </td>
+
+
+
+                                            <td style="background: linear-gradient(item.GradientBackGround)"></td>
+
+                                            <td class="text-center">
+
+                                                <a class="btn default btn-xs purple update" data-toggle="modal" href="#modal-add" data-id="item.CourseId" title="Cập nhật"> <span class="glyphicon glyphicon-edit"></span></a>
+
+                                                <a class="btn default btn-xs red delete" data-id="item.CourseId"><span class="glyphicon glyphicon-trash" title="Xóa"></span></a>
+
+                                            </td>
+
+
+
+                                            <td class="text-center">
+
+
+                                                <a class="btn default btn-xs green" href="/CourseOverView/CourseOverView/item.CourseId" title="Thêm thông tin"><span class="glyphicon glyphicon-list-alt"></span></a>
+
+                                                <a class="btn default btn-xs purple" href="/CourseApp/CourseApp/item.CourseId" title="Thêm ứng dụng"><span class="glyphicon glyphicon-list-alt"></span></a>
+
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pagination" id="pagination">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!--Modal arear-->
+
+            <div class="modal-area">
+
+                <div class="modal fade" id="modal-add" tabindex="-1" role="columnheader" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Thêm mới, cập nhật khóa học </h4>
+                                <p hidden id="hid-id"></p>
+                            </div>
+                            <form class="modal-body" id="frm-save">
+
+                                <div class="form-group">
+                                    <label for="txt-CourseName">Tên khóa học</label>
+                                    <input type="text" class="form-control" id="txt-CourseName" name="CourseName" style="color:mediumvioletred">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-Image">Ảnh đại diện</label>
+                                    <input type="text" class="form-control" id="txt-Image" name="Image">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-SeoTittle">Tiêu đề Seo</label>
+                                    <input type="text" class="form-control" id="txt-SeoTittle" name="SeoTittle">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="txt-SeoDescription">Nội dung Seo</label>
+                                    <input type="text" class="form-control" id="txt-SeoDescription" name="SeoDescription">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-AmountLesson">Số lượng bài học</label>
+                                    <input type="number" class="form-control" id="txt-AmountLesson" name="AmountLesson">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-StudyingTime">Thời lượng</label>
+                                    <input type="number" class="form-control" id="txt-StudyingTime" name="StudyingTime">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="txt-Slogan">Slogan khóa học</label>
+                                    <input type="text" class="form-control" id="txt-Slogan" name="Slogan">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-Banner">Banner khóa học</label>
+                                    <input type="text" class="form-control" id="txt-Banner" name="Banner">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-GradientBackGround">Gradient nền khóa học</label>
+                                    <input type="text" class="form-control col-md-8" id="txt-GradientBackGround" name="GradientBackGround">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-Seen">Lượt xem</label>
+                                    <input type="text" class="form-control col-md-8" id="txt-Seen" name="Seen">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-Status">Trạng thái</label>
+                                    <select class="form-control" id="txt-Status" name="Status">
+                                        <option value="1">Khóa học đang quảng cáo</option>
+                                        <option value="2">Khóa học không quảng cáo</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-ShortName">Tên rút gọn</label>
+                                    <input type="text" class="form-control col-md-8" id="txt-ShortName" name="ShortName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-Summary">Nội dung tóm tắt</label>
+                                    <input type="text" class="form-control col-md-8" id="txt-Summary" name="Summary">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-CourseCateId">Danh mục khóa học</label>
+                                    <select class="form-control" id="txt-CourseCateId" name="CourseCateId">
+                                        <option value="">Chọn danh mục</option>
+                                        <option value="">Chọn danh mục</option>
+                                        <option value="">Chọn danh mục</option>
+                                        <option value="">Chọn danh mục</option>
+
+                                    </select>
+                                </div>
+
+                            </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn default" data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn blue" id="btn-save">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <!--Kết thúc Modal thêm, update-->
+
+            </div>
+
+        </div>
+    </div>
+    <!-- END PAGE CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        <div class="container">
+            IMIC TECHNOLOGY
+        </div>
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+    <script src="./assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="./lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="./lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="./js/pagination.min.js"></script>
+    <script src="./lib/bootbox.js/bootbox.min.js"></script>
+
+    <script src="./assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="./assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="./assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="./assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="./assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="./assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="./assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="./assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script type="text/javascript" src="./assets/global/plugins/select2/select2.min.js"></script>
+    <script type="text/javascript" src="./assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="./assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="./assets/admin/layout3/scripts/layout.js" type="text/javascript"></script>
+    <script src="./assets/admin/layout3/scripts/demo.js" type="text/javascript"></script>
+    <!-- BEGIddsdsdsN PAGE LEVEL SCRIPTS -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- BEGIddsdsdsN PAGE LEVEL SCRIPTS -->
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Demo.init(); // init demo features
+
+        });
+    </script>
+
+
+</body>
+<!-- END BODY -->
+</html>

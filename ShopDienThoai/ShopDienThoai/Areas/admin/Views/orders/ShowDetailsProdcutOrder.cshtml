@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ShopDienThoai.EntityFramework.order_details>
+@{
+    var listProduct = @ViewBag.ListProduct;
+}
+
+
+@if (@ViewBag.count > 0)
+{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+
+            <td>
+                @foreach (var i in listProduct)
+                {
+                    if (item.id == i.id)
+                    {
+                        @i.color
+                    }
+                }
+            </td>
+
+            <td>
+                @foreach (var i in listProduct)
+                {
+                    if (item.id == i.id)
+                    {
+                        @i.memory
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qty)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+
+
+        </tr>
+    }
+}

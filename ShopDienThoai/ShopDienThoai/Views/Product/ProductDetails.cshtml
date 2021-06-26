@@ -1,0 +1,133 @@
+﻿@model ShopDienThoai.EntityFramework.product
+
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var RelatedProduct = (List<ShopDienThoai.EntityFramework.product>)ViewBag.RelatedProduct;
+}
+@section jsFooter {
+    <script>
+        $(document).on('click', '.btn-add-cart', function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+            var quantity = $("#quantity").val();
+            AddCart(id, quantity);
+        });
+        $(document).on('click', '.buy-now', function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+            AddCart(id, 1);
+        })
+    </script>
+}
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Single</span></p>
+                <h1 class="mb-0 bread">Product Single</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate">
+                <a href="@Model.images" class="image-popup"><img src="@Model.images" class="img-fluid" alt="@Model.name"></a>
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <h3>@Model.name</h3>
+              
+                <p class="price">Giá Bán : <span>@String.Format("{0:0,0}", Model.sale)<sup>vnđ</sup></span></p>
+                <p class="price">Màu : @Model.color</p>
+                <p class="price">Bộ Nhớ : @Model.memory</p>
+                <p>
+                    Mô tả :@Model.summary 
+                </p>
+                <div class="row mt-4">
+                    
+                    <div class="w-100"></div>
+                    <div class="input-group col-md-6 d-flex mb-3">
+                        
+                            <span class="input-group-btn mr-2">
+                                <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+                                    <i class="ion-ios-remove"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="@Model.quantity" >
+                            <span class="input-group-btn ml-2">
+                                <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                                    <i class="ion-ios-add"></i>
+                                </button>
+                            </span>
+                        
+                    </div>
+                    <div class="w-100"></div>
+                </div>
+                <p><a href="cart.html" class="btn btn-black py-3 px-5 btn-add-cart" data-id="@Model.id">Add to Cart</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <h1>Thông tin chi tiết</h1>
+           
+            <div class="col-12">
+                @Html.Raw(Model.descriptions)
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Products</span>
+                <h2 class="mb-4">Sản Phẩm Tương Tự</h2>
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in RelatedProduct)
+            {
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="@Url.RouteUrl("Product",new { slug = item.slug})" class="img-prod">
+                            <img class="img-fluid" src="@item.images" alt="@item.name">
+                            <span class="status">30%</span>
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="@Url.RouteUrl("Product",new { slug = item.slug})">@item.name</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price">
+                                        
+                                    <span class="mr-2 price-dc"><small>@String.Format("{0:0,0}", Model.price)</small><sup>vnđ</sup></span>
+                                    <span class="price-sale"><small>@String.Format("{0:0,0}", Model.sale)</small><sup>vnđ</sup></span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
+                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1" data-id="@item.id">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,58 @@
+﻿@model ShopDienThoai.EntityFramework.article
+
+@{
+    ViewBag.Title = "ChiTietTinTuc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var listComments = (ShopDienThoai.EntityFramework.comment)ViewBag.Comments;
+}
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 ftco-animate fadeInUp ftco-animated">
+                <h2 class="mb-3">@Model.title</h2>
+                @Html.Raw(Model.descriptions)
+
+                <div class="pt-5 mt-5">
+                    <h3 class="mb-5"> Comments</h3>
+                    <ul class="comment-list">
+                        @foreach (var c in listComments)
+                        {
+                            <li class="comment">
+                                <div class="vcard bio">
+                                    <img src="~/Public/frontend/images/person_1.jpg" />
+                                </div>
+                                <div class="comment-body">
+                                    <h3>@c.name</h3>
+                                    <div class="meta">@c.created_at</div>
+                                    <p> @c.meta_title</p>
+                                    
+                                </div>
+                            </li>
+                        }
+
+
+
+
+                    </ul>
+                    <!-- END comment-list -->
+
+                    <div class="comment-form-wrap pt-5">
+                        <h3 class="mb-5">Leave a comment</h3>
+                        @using (Html.BeginRouteForm("ChiTietTinTuc",new { slug = Model.slug }, FormMethod.Post, new { @class = "p-5 bg-light" }))
+                        {
+                            <div class="form-group">
+                                <label for="message">Nội Dung</label>
+                                <textarea name="noidung" id="message" cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+            
+        </div>
+    </div>
+</section>

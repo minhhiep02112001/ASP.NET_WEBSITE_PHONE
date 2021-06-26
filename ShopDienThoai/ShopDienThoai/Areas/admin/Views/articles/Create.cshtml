@@ -1,0 +1,141 @@
+﻿@model ShopDienThoai.EntityFramework.article
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+@section jsFooter{
+    <script>
+
+        $(document).on('change', '#name', function () {
+            var str = $(this).val();
+            $('#slug').val(ChangeToSlug(str));
+        })
+
+    </script>
+
+}
+
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Thêm Tin Tức <small>(articles)</small></h2>
+                        <a class="nav navbar-right panel_toolbox btn  btn-primary" href="@Url.Action("Index" , "articles")">Danh Sách</a>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+
+                        @using (Html.BeginForm("Create", "articles", FormMethod.Post, new { htmlAttributes = new { @class = "form-horizontal form-label-left", @enctype = "multipart/form-data" } }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Tiêu đề  : </label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    @Html.EditorFor(model => model.title, new { htmlAttributes = new { @id = "name", @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Slug </label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    @Html.EditorFor(model => model.slug, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.slug, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Url </label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    @Html.EditorFor(model => model.url, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.url, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Images  </label>
+                                <div class="col-md-9 col-sm-9 ">
+
+                                    <div class="input-group">
+
+                                        @Html.EditorFor(model => model.images, new { htmlAttributes = new { @id = "image", @class = "form-control", @readonly = "readonly" } })
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary btn-upload-file" id="btn-upload-file">UpLoad!</button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Tóm Tắt</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    @Html.TextAreaFor(model => model.summary, new { @class = "form-control", @rows = "3" })
+                                    @Html.ValidationMessageFor(model => model.summary, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Nội Dung</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    @Html.TextAreaFor(model => model.descriptions, new { @class = "form-control", @rows = "3" })
+                                    @Html.ValidationMessageFor(model => model.descriptions, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Meta Title</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    @Html.EditorFor(model => model.meta_title, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.meta_title, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Meta Description</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    @Html.TextAreaFor(model => model.meta_description, new { @class = "form-control", @rows = "3" })
+                                    @Html.ValidationMessageFor(model => model.meta_description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Nổi Bật :</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <div class="">
+                                        @Html.EditorFor(model => model.is_hot, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Hiển Thị :</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <div class="">
+                                        @Html.EditorFor(model => model.is_active, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-9 col-sm-9  offset-md-3">
+
+                                    <button type="submit" class="btn btn-success">Thêm</button>
+
+                                    <button type="reset" class="btn btn-primary">Reset</button>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

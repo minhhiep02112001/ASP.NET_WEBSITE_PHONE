@@ -1,0 +1,337 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var productHots = (@ViewBag.ProductHot != null) ? (List<ShopDienThoai.EntityFramework.product>)ViewBag.ProductHot : null;
+    var productNews = (@ViewBag.productNew != null) ? (List<ShopDienThoai.EntityFramework.product>)ViewBag.productNew : null;
+    var articleHots = (@ViewBag.AriclesHot != null) ? (List<ShopDienThoai.EntityFramework.article>)ViewBag.AriclesHot : null;
+    var Banners = (@ViewBag.Banners != null) ? (List<ShopDienThoai.EntityFramework.banner>)ViewBag.Banners : null;
+    var ProductSellings = (@ViewBag.ProductSelling != null) ? (List<ShopDienThoai.EntityFramework.product>)ViewBag.ProductSelling : null;
+}
+@section jsFooter{
+    <script>
+
+        $(document).on('click', '.buy-now', function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+            AddCart(id, 1);
+        });
+
+
+
+    </script>
+
+}
+<section id="home-section" class="hero">
+    <div class="home-slider owl-carousel">
+        @foreach (var item in Banners)
+        {
+            <div class="slider-item" style="background-image: url(@item.images);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+                        <div class="col-md-12 ftco-animate text-center">
+                            <h1 class="mb-2">@item.title</h1>
+                            <h2 class="subheading mb-4">@Html.Raw(item.descriptions)</h2>
+                            <p><a href="@item.url" class="btn btn-primary" target="@item.targets">Xem chi tiết</a></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row no-gutters ftco-services">
+            <div class="  col-6 col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services mb-md-0 mb-4">
+                    <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
+                        <span class="flaticon-shipped"></span>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="heading">MIỄN PHÍ VẬN CHUYỂN</h3>
+                        <span>ĐỐI VỚI ĐƠN HÀNG TRÊN 800K</span>
+                    </div>
+                </div>
+            </div>
+            <div class="  col-6 col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services mb-md-0 mb-4">
+                    <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
+                        <span class="flaticon-diet"></span>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="heading">LUÔN TƯƠI, SẠCH</h3>
+                        <span>SẢN PHẨM ĐƯỢC ĐÓNG GÓI CẨN THẬN</span>
+                    </div>
+                </div>
+            </div>
+            <div class="  col-6 col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services mb-md-0 mb-4">
+                    <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
+                        <span class="flaticon-award"></span>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="heading">CHẤT LƯỢNG ĐẢM BẢO</h3>
+                        <span>LUÔN ĐƯỢC ƯU TIÊN</span>
+                    </div>
+                </div>
+            </div>
+            <div class="  col-6 col-md-3 text-center d-flex align-self-stretch ftco-animate">
+                <div class="media block-6 services mb-md-0 mb-4">
+                    <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
+                        <span class="flaticon-customer-service"></span>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="heading">HỖ TRỢ</h3>
+                        <span>LUÔN HỖ TRỢ 24/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-category ftco-no-pt">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6 order-md-last align-items-stretch d-flex">
+                        @if (articleHots.Count > 0)
+                        {
+                            <div class="category-wrap-2 ftco-animate img align-self-stretch d-flex"
+                                 style="background-image: url(@articleHots[0].images);">
+                                <div class="text text-center">
+                                    <h2>@articleHots[0].title Giảm Giá 90%</h2>
+
+                                    <p><a href="#" class="btn btn-primary">Chi Tiết</a></p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        @if (articleHots.Count > 1)
+                        {
+
+                            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
+                                 style="background-image: url(@articleHots[1].images);">
+                                <div class="text px-3 py-1">
+                                    <h2 class="mb-0"><a href="#">@articleHots[1].title</a></h2>
+                                </div>
+                            </div>
+
+                        }
+                        @if (articleHots.Count > 2)
+                        {
+
+                            <div class="category-wrap ftco-animate img d-flex align-items-end"
+                                 style="background-image: url(@articleHots[2].images);">
+                                <div class="text px-3 py-1">
+                                    <h2 class="mb-0"><a href="#">@articleHots[0].title</a></h2>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @if (articleHots.Count > 3)
+                {
+
+                    <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
+                         style="background-image: url(@articleHots[3].images);">
+                        <div class="text px-3 py-1">
+                            <h2 class="mb-0"><a href="#">@articleHots[3].images</a></h2>
+                        </div>
+                    </div>
+
+                }
+                @if (articleHots.Count > 4)
+                {
+
+                    <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end"
+                         style="background-image: url(@articleHots[4].images);">
+                        <div class="text px-3 py-1">
+                            <h2 class="mb-0"><a href="#">@articleHots[4].images</a></h2>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Sản phẩm của chúng tôi</span>
+                <h2 class="mb-4">Sản phẩm nổi bật</h2>
+                @*  <p>Chúng tôi luôn ưu tiên chất lượng sản phẩm làm đầu vì sức khỏe của các bạn.</p>*@
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach (var prod_hot in productHots)
+            {
+                <div class="  col-6 col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="#" class="img-prod">
+                            <img class="img-fluid" src="@prod_hot.images"
+                                 alt="Colorlib Template">
+                            <span class="status">Hot</span>
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="#">Bell Pepper</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price">
+                                        <span class="mr-2 price-dc">@String.Format("{0:0,0}", prod_hot.price)<sup>vnđ</sup></span>
+                                        <span class="price-sale">@String.Format("{0:0,0}", prod_hot.sale)<sup>vnđ</sup></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    <a href="#"
+                                       class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
+                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1" data-id="@prod_hot.id">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Sản phẩm của chúng tôi</span>
+                <h2 class="mb-4">Sản Phẩm Mới Nhất</h2>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach (var prod_new in productNews)
+            {
+                <div class="  col-6 col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="#" class="img-prod">
+                            <img class="img-fluid" src="@prod_new.images"
+                                 alt="Colorlib Template">
+                            <span class="status">New</span>
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="#">Bell Pepper</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price">
+                                        <span class="mr-2 price-dc">@String.Format("{0:0,0}", prod_new.price)<sup>vnđ</sup></span>
+                                        <span class="price-sale">@String.Format("{0:0,0}", prod_new.sale)<sup>vnđ</sup></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    <a href="#"
+                                       class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
+                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1" data-id="@prod_new.id">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Sản phẩm của chúng tôi</span>
+                <h2 class="mb-4">Sản Phẩm Bán Chạy</h2>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach (var prod_sell in ProductSellings)
+            {
+                <div class="  col-6 col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="#" class="img-prod">
+                            <img class="img-fluid" src="@prod_sell.images"
+                                 alt="Colorlib Template">
+                            <span class="status">New</span>
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="#">Bell Pepper</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price">
+                                        <span class="mr-2 price-dc">@String.Format("{0:0,0}", prod_sell.price)<sup>vnđ</sup></span>
+                                        <span class="price-sale">@String.Format("{0:0,0}", prod_sell.sale)<sup>vnđ</sup></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    <a href="#"
+                                       class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
+                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1" data-id="@prod_sell.id">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

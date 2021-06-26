@@ -1,0 +1,55 @@
+﻿@model PagedList.IPagedList<ShopDienThoai.EntityFramework.article>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 ftco-animate fadeInUp ftco-animated">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-12 d-flex ftco-animate fadeInUp ftco-animated">
+                            <div class="blog-entry align-self-stretch d-md-flex">
+                                <a href="blog-single.html" class="block-20" style="background-image: url('@item.images');">
+                                </a>
+                                <div class="text d-block pl-md-4">
+                                    @*<div class="meta mb-3">
+                                            <div><a href="#">July 20, 2019</a></div>
+                                            <div><a href="#">Admin</a></div>
+                                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                        </div>*@
+                                    <h3 class="heading"><a href="@Url.RouteUrl("ChiTietTinTuc",new { slug = item.slug })">@item.title</a></h3>
+                                    <p> @item.summary</p>
+                                    <p><a href="@Url.RouteUrl("ChiTietTinTuc",new { slug = item.slug })" class="btn btn-primary py-2 px-3">Read more</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+
+
+                            @Html.PagedListPager(Model, page => Url.RouteUrl("TinTuc", new { page }), new PagedListRenderOptions
+                       {
+                           DisplayLinkToIndividualPages = true,
+                           DisplayPageCountAndCurrentLocation = false,
+                           MaximumPageNumbersToDisplay = 10,
+                           LiElementClasses = new string[] { "page-item" }
+                            });
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+
+        </div>
+    </div>
+</section>
+
+
+

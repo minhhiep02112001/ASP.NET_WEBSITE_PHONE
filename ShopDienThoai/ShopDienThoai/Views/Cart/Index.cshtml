@@ -1,0 +1,199 @@
+﻿@model List<ShopDienThoai.Object.CartItem>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var customerSession = (Session["CUSTOMER_SESSION"] != null) ? (ShopDienThoai.Common.CustomerSession)Session["CUSTOMER_SESSION"] : null;
+
+}
+@section jsFooter{
+        <script>
+            $(document).on('click', '.deleteCartItem', function (event) {
+                event.preventDefault();
+                var id = $(this).data("id");
+                AddCart(id,0);
+            });
+            $(document).on('change', '.quantity', function () {
+                var id = $(this).data("id");
+                var quantity = $(this).val();
+                $.ajax({
+                    url: '/gio-hang/chageQuantityCart/' + id + '/' + quantity,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        if (data.status == false) {
+                            alert(data.text);
+                        } else {
+                            location.href = "/gio-hang";
+                        }
+                    }
+                });
+            })
+        </script>
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url('/Public/frontend/images/bg_1.jpg'); width: 100%; height: 500px;">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+                <h1 class="mb-0 bread">My Cart</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th>Product name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td class="product-remove"><a class="deleteCartItem" href="#" data-id="@item.product_id"><span class="ion-ios-close"></span></a></td>
+
+                                        <td class="image-prod"><div class="img" style="max-width:100px; background-image:url(@item.images);"></div></td>
+
+                                        <td class="product-name">
+                                            <h3>@item.ten_sp</h3>
+
+                                        </td>
+
+                                        <td class="price">@String.Format("{0:0,0}", item.price)<sup>vnđ</sup></td>
+
+                                        <td class="quantity">
+                                            <div class="input-group mb-3">
+                                                <input type="number" name="quantity" data-id="@item.product_id" class="quantity form-control input-number" value="@item.quatity" min="1" max="100">
+                                            </div>
+                                        </td>
+
+                                        <td class="total">@String.Format("{0:0,0}", item.total)<sup>vnđ</sup></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6">Chưa có sản phẩm</td>
+                                </tr>
+                            }
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            
+            <div class="col-lg-8 mt-5 cart-wrap ftco-animate">
+                <div class="cart-total mb-3">
+                    <h3>Thông tin</h3>
+
+                    @using (Html.BeginRouteForm("Cart", new { action = "DatHang" }, FormMethod.Post, new { @class = "info" }))
+                    {
+
+
+                        <div class="form-group">
+                            <label for="">Name <span class="text-danger">*</span>:</label>
+                            <input type="text" name="name" value="" class="form-control text-left px-3" placeholder="tên" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="">Adrress <span class="text-danger">*</span>:</label>
+                            <input type="text" class="form-control text-left px-3" name="address" placeholder="địa chỉ" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="">Email  <span class="text-danger">*</span>:</label>
+                            <input type="email" class="form-control text-left px-3" name="email" placeholder="email" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="country">Phone <span class="text-danger">*</span>:</label>
+                            <input type="number" class="form-control text-left px-3" name="phone" placeholder="số điện thoại" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="country">Ghi Chú:</label>
+                            <input type="text" class="form-control text-left px-3" name="ghiChu" placeholder="Ghi chú">
+                        </div>
+
+
+                        <p><button type="submit" class="btn btn-primary py-3 px-4">Đặt Hàng</button></p>
+
+                        if (Session["Status"] != null)
+                        {
+                            <p class="alert-block alert-info">@Session["Status"]</p>
+                            Session.Remove("Status");
+                        }
+
+                    }
+
+                </div>
+               
+            </div>
+            <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                <div class="cart-total mb-3">
+                    <h3>Cart Totals</h3>
+                    
+                    <p class="d-flex total-price">
+                        <span>Total</span>
+                        <span>
+                            @if (Model.Count > 0)
+                            {
+                                @String.Format("{0:0,0}", Model.Sum(c=>c.total))<sup>vnđ</sup>
+                            }
+                                            </span>
+                    </p>
+                </div>
+                @*<p><a href="dangky.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>*@
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+    <div class="container py-4">
+        <div class="row d-flex justify-content-center py-5">
+            <div class="col-md-6">
+                <h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+                <span>Get e-mail updates about our latest shops and special offers</span>
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <form action="#" class="subscribe-form">
+                    <div class="form-group d-flex">
+                        <input type="text" class="form-control" placeholder="Enter email address">
+                        <input type="submit" value="Subscribe" class="submit px-3">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

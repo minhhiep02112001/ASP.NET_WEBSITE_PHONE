@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ShopDienThoai.EntityFramework.comment>
+
+@{
+    ViewBag.Title = "Comment";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+
+    var ListArticles = (List<ShopDienThoai.EntityFramework.article>)ViewBag.ListArticles;
+}
+
+
+<div class="right_col" role="main">
+    <div class="">
+
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Danh Sách Comment<small>(comment)</small></h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box table-responsive">
+
+                                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>TT</th>
+                                                <th style="max-with:200px">Bài Viết</th>
+                                                <th>Tên </th>
+                                                <th>Nội Dung</th>
+                                                
+                                                <th width="10%" class="text-center">Hành động</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr id="row_@item.id">
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.id)
+                                                    </td>
+                                                    <td>
+                                                        @ListArticles.Where(c=>c.id == item.articles_id).First().title
+                                                    </td>
+
+                                                    <td>
+                                                        @item.name
+                                                    </td>
+
+                                                    <td>
+                                                        @item.meta_title
+                                                    </td>
+
+                                                    
+
+                                                    <td>
+
+
+                                                        @Ajax.ActionLink("Xóa", "DeleteComment" ,"articles", new { @id = item.id }, new AjaxOptions
+                                                           {
+                                                               Confirm = "Bạn muốn xóa bản ghi này không",
+                                                               OnComplete = "$('#row_" + item.id + "').remove()",
+                                                               HttpMethod = "Delete"
+                                                           }, new { @class = "btn btn-danger btn-sm" })
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

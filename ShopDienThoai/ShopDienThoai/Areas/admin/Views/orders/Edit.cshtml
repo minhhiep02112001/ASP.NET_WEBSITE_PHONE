@@ -1,0 +1,129 @@
+﻿@model ShopDienThoai.EntityFramework.order
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Thông Tin Hóa Đơn <small>(order)</small></h2>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="row" style="display: block;">
+                        <div class="col-md-4 col-sm-6  ">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Thông tin Khách Hàng</h2>
+                                    
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    @using (Html.BeginForm("Edit", "orders", new { id = Model.id }, FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã Đơn:</th>
+                                                    <td>@Model.coupon</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>Tên :</th>
+                                                    <td>@Model.fullname</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Địa Chỉ :</th>
+                                                    <td>@Model.address_order</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email :</th>
+                                                    <td>@Model.email</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>SĐT :</th>
+                                                    <td>@Model.phone</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tổng :</th>
+                                                    <td>@Model.total</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Trạng Thái:</th>
+                                                    <td>
+                                                        <select class="form-control" name="status">
+                                                            <option value="0" @(Model.order_Status_id == 0 ? "selected" : "")>Đặt Hàng</option>
+                                                            <option value="1" @(Model.order_Status_id == 1 ? "selected" : "")>Giao Hàng</option>
+                                                            <option value="2" @(Model.order_Status_id == 2 ? "selected" : "")>Thành Công</option>
+                                                            <option value="3" @(Model.order_Status_id == 3 ? "selected" : "")>Hủy</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td colspan="2"><button type="submit" class="btn btn-primary" @(Model.order_Status_id == 2 ? "disabled" : "")>Lưu Thay Đổi</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8 col-sm-6  ">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Thông tin sản phẩm mua </h2>
+                                    
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tên SP</th>
+                                                <th>Giá</th>
+                                                <th>Màu</th>
+                                                <th>Bộ Nhớ</th>
+                                                <th>SL</th>
+                                                <th>Tổng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @Html.Action("ShowDetailsProdcutOrder","orders" , new { id = Model.id })
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+
+                        
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<!-- /page content -->

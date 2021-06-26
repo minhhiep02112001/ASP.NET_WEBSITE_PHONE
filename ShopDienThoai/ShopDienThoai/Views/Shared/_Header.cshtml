@@ -1,0 +1,75 @@
+﻿@{
+    Layout = null;
+
+    var customerSession = (Session["CUSTOMER_SESSION"] != null) ? (ShopDienThoai.Common.CustomerSession)Session["CUSTOMER_SESSION"] : null;
+
+    var sessionCart = (Session["CartSession"] != null) ? (List<ShopDienThoai.Object.CartItem>)Session["CartSession"] : null;
+}
+<div class="py-1 " style="background-color: #2E64FE;height: 35px; ">
+    <div class="container">
+        <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+            <div class="col-lg-12 d-block">
+                <div class="row d-flex">
+                    <div class="col-md pr-4 d-flex topper align-items-center">
+                        <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                        <span class="text">+84 9787 878 01</span>
+                    </div>
+                    <div class="col-md pr-4 d-flex topper align-items-center">
+                        <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                        <span class="text">Greenfruit@gmail.com</span>
+                    </div>
+                    <div class="col-md-2 pr-4 d-flex topper align-items-center text-lg-right">
+                        @if (customerSession != null)
+                        {
+                            <a href="#">
+                                <button type="button" class="btn btn-link" style="text-decoration: none; color: rgb(255, 255, 255); font-size: 20px;"><i class="icon-user"></i></button>
+                            </a><span class="text-light">|  <a href="/Login/Logout" class="text-light">Đăng Xuất</a></span>
+                        }
+                        else
+                        {
+                            <a href="/Login" class="text-light">Đăng Nhập</a>
+                            <span class="text-light"> | </span>
+                            <a href="/dang-ky"  class="text-light">Đăng Ký</a>
+                         }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Green fruit </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="/" class="nav-link">Trang Chủ</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Sản Phẩm</a>
+                    @Html.Action("LoadMenu", "Home")
+                </li>
+                <li class="nav-item"><a href="@Url.RouteUrl("TinTuc")" class="nav-link">Tin Tức</a></li>
+                <li class="nav-item"><a href="@Url.RouteUrl("Cart")" class="nav-link">Giỏ Hàng</a></li>
+                <li class="nav-item"><a href="@Url.RouteUrl("Contact")" class="nav-link">Liên Hệ</a></li>
+                <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[@(sessionCart != null ? sessionCart.Sum(c=>c.quatity).ToString() : "0")]</a></li>
+                <li class=" row nav-item">
+                    <div class="col-12">
+                        <form class="form-inline" style="padding: 15px;">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search" style="width: 150px !important; border-radius: 50px; height: 40px !important; margin: 0px; width: 80%; font-size: 15px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- END nav -->
